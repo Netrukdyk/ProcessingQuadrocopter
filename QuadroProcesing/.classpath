@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/core.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/gluegen-rt-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/gluegen-rt-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/gluegen-rt-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/gluegen-rt-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/jogl-all.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/jogl-all-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/jogl-all-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/jogl-all-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/jogl-all-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/core/library/jogl-all-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/Processing/libraries/toxiclibs_p5/library/toxiclibs_p5.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/Processing/libraries/toxiclibscore/library/toxiclibscore.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/modes/java/libraries/serial/library/serial.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/Processing/libraries/mav_utils/library/mav_util.jar"/>
+	<classpathentry kind="lib" path="D:/Documents/Processing/libraries/mavlink/library/mavlink.jar"/>
+	<classpathentry kind="lib" path="C:/processing-2.2.1/modes/java/libraries/serial/library/jssc.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
