@@ -2,6 +2,8 @@ import processing.core.*;
 import processing.serial.*;
 import processing.opengl.*;
 import toxi.geom.*;
+import toxi.geom.Vec3D.Axis;
+import toxi.math.InterpolateStrategy;
 import toxi.processing.*;
 
 import java.nio.ByteBuffer;
@@ -45,7 +47,8 @@ public class Main extends PApplet {
 	ByteBuffer data;
 	PipedInputStream pis = new PipedInputStream();
 	PipedOutputStream pos;
-
+	Quaternion zeroQuat;
+	
 	public void setup() {
 		// 300px square viewport using OpenGL rendering
 		size(300, 300, OPENGL);
@@ -60,11 +63,11 @@ public class Main extends PApplet {
 
 		// get the first available port (use EITHER this OR the specific port
 		// code below)
-		//String portName = Serial.list()[1];
+		// String portName = Serial.list()[1];
 
 		// get a specific serial port (use EITHER this OR the first-available
 		// code above)
-		 String portName = "COM3";
+		String portName = "COM3";
 
 		// open the serial port
 		port = new Serial(this, portName, 230400);
@@ -72,14 +75,14 @@ public class Main extends PApplet {
 		// send single character to trigger DMP init/start
 		// (expected by MPU6050_DMP6 example Arduino sketch)
 		port.write('r');
-		
+
 		try {
 			pos = new PipedOutputStream(pis);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
-
+		}
+		zeroQuat = new Quaternion(1, 0, 0, 0);
 	}
 
 	public void draw() {
@@ -169,29 +172,36 @@ public class Main extends PApplet {
 
 		popMatrix();
 	}
-	Quaternion zeroQuat = new Quaternion(1,0,0,0);
+	
 	MAVLinkReader reader = new MAVLinkReader(new DataInputStream(pis), IMAVLinkMessage.MAVPROT_PACKET_START_V10);
 	MAVLinkMessage msg;
+	float oldValue = 0;
 	public void serialEvent(Serial port) throws IOException {
 		interval = millis();
-		//println(port.available());
+		// println(port.available());
 		while (port.available() > 0) {
 			int ch = port.read();
-			//println(ch);
+			// println(ch);
 
 			pos.write(ch);
 			msg = reader.getNextMessageWithoutBlocking();
 			if (msg != null) {
 				msg_attitude_quaternion m = (msg_attitude_quaternion) msg;
-				if(msg.messageType == IMAVLinkMessageID.MAVLINK_MSG_ID_ATTITUDE_QUATERNION && m.rollspeed == 1.0){					
-					zeroQuat.set(m.q1, m.q2, m.q3, m.q4);
-					print("zero");
+				if (msg.messageType == IMAVLinkMessageID.MAVLINK_MSG_ID_ATTITUDE_QUATERNION) {
+
+					if (oldValue == 0.0f && m.rollspeed == 1.0f) {
+						zeroQuat.set(m.q1, m.q2, m.q3, m.q4);
+						println(zeroQuat);										
+					}
+					oldValue = m.rollspeed;
+					
+					quat.set(m.q1, m.q2, m.q3, m.q4);
+					quat = quat.multiply(zeroQuat.getConjugate());
+					//quat = zeroQuat.getConjugate().multiply(quat);
+					//quat = quat.getConjugate().multiply(zeroQuat);
+					//quat = quat.multiply(zeroQuat.getConjugate());
 				}
-				println(zeroQuat);
-				quat.set(m.q1, m.q2, m.q3, m.q4);
-				quat = quat.multiply(zeroQuat.getConjugate());
-				
-				
+
 			}
 		}
 
